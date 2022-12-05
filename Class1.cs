@@ -60,6 +60,7 @@ namespace AphoPassivePack
                     new LorId(AphoPassivePack_Params.PackageId, 10000006),
                     new LorId(AphoPassivePack_Params.PackageId, 10000007),
                     new LorId(AphoPassivePack_Params.PackageId, 10000008),
+                    new LorId(AphoPassivePack_Params.PackageId, 10000009),
                 }
             ));
         }
@@ -84,7 +85,7 @@ namespace AphoPassivePack
         {
             ModParameters.CategoryOptions.Add(AphoPassivePack_Params.PackageId, new List<CategoryOptions>
             {
-                new CategoryOptions(AphoPassivePack_Params.PackageId, additionalValue: "_1", categoryBooksId:new List<int>{10000001, 10000002, 10000003, 10000004, 10000005, 10000006, 10000007, 10000008}, categoryName: AphoPassivePack_Params.CategoryName,customIconSpriteId:AphoPassivePack_Params.PackageId, bookDataColor: new CategoryColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.898f, 0.169f, 0.314f)), credenzaType: CredenzaEnum.ModifiedCredenza, chapter: 1, credenzaBooksId: new List<int> { 10000001, 10000002, 10000003 , 10000004, 10000005, 10000006, 10000007, 10000008}),
+                new CategoryOptions(AphoPassivePack_Params.PackageId, additionalValue: "_1", categoryBooksId:new List<int>{10000001, 10000002, 10000003, 10000004, 10000005, 10000006, 10000007, 10000008, 10000009}, categoryName: AphoPassivePack_Params.CategoryName,customIconSpriteId:AphoPassivePack_Params.PackageId, bookDataColor: new CategoryColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.898f, 0.169f, 0.314f)), credenzaType: CredenzaEnum.ModifiedCredenza, chapter: 1, credenzaBooksId: new List<int> { 10000001, 10000002, 10000003 , 10000004, 10000005, 10000006, 10000007, 10000008, 10000009}),
             });
         }
         private static void OnInitKeypages()
@@ -99,20 +100,22 @@ namespace AphoPassivePack
                 new KeypageOptions(10000006, keypageColorOptions: new KeypageColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.898f, 0.169f, 0.314f))),
                 new KeypageOptions(10000007, keypageColorOptions: new KeypageColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.898f, 0.169f, 0.314f))),
                 new KeypageOptions(10000008, keypageColorOptions: new KeypageColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.898f, 0.169f, 0.314f))),
+                new KeypageOptions(10000009, keypageColorOptions: new KeypageColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.898f, 0.169f, 0.314f))),
             });
         }
         private static void OnInitSprites()
         {
             ModParameters.SpriteOptions.Add(AphoPassivePack_Params.PackageId, new List<SpriteOptions>
             {
-                new SpriteOptions(SpriteEnum.Custom, 10000001, "Sprite"),
-                new SpriteOptions(SpriteEnum.Custom, 10000002, "Sprite"),
-                new SpriteOptions(SpriteEnum.Custom, 10000003, "Sprite"),
-                new SpriteOptions(SpriteEnum.Custom, 10000004, "Sprite"),
-                new SpriteOptions(SpriteEnum.Custom, 10000005, "Sprite"),
-                new SpriteOptions(SpriteEnum.Custom, 10000006, "Sprite"),
-                new SpriteOptions(SpriteEnum.Custom, 10000007, "Sprite"),
-                new SpriteOptions(SpriteEnum.Custom, 10000008, "Sprite"),
+                new SpriteOptions(SpriteEnum.Custom, 10000001, "AphoPassivePack_Sprite"),
+                new SpriteOptions(SpriteEnum.Custom, 10000002, "AphoPassivePack_Sprite"),
+                new SpriteOptions(SpriteEnum.Custom, 10000003, "AphoPassivePack_Sprite"),
+                new SpriteOptions(SpriteEnum.Custom, 10000004, "AphoPassivePack_Sprite"),
+                new SpriteOptions(SpriteEnum.Custom, 10000005, "AphoPassivePack_Sprite"),
+                new SpriteOptions(SpriteEnum.Custom, 10000006, "AphoPassivePack_Sprite"),
+                new SpriteOptions(SpriteEnum.Custom, 10000007, "AphoPassivePack_Sprite"),
+                new SpriteOptions(SpriteEnum.Custom, 10000008, "AphoPassivePack_Sprite"),
+                new SpriteOptions(SpriteEnum.Custom, 10000009, "AphoPassivePack_Sprite"),
             });
         }
         private static void OnInitPassives()
@@ -248,6 +251,14 @@ namespace AphoPassivePack
                         new LorId(AphoPassivePack_Params.PackageId, 74),
                         new LorId(AphoPassivePack_Params.PackageId, 75),
                 }), //NoDeath
+
+                //Perdition
+                new PassiveOptions(80, true, passiveColorOptions: new PassiveColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.624f, 0.169f, 0.408f))),
+                new PassiveOptions(81, true, passiveColorOptions: new PassiveColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.624f, 0.169f, 0.408f))),
+                new PassiveOptions(82, true, passiveColorOptions: new PassiveColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.624f, 0.169f, 0.408f))),
+                new PassiveOptions(83, true, passiveColorOptions: new PassiveColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.624f, 0.169f, 0.408f))),
+                new PassiveOptions(84, true, passiveColorOptions: new PassiveColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.624f, 0.169f, 0.408f))),
+                new PassiveOptions(85, true, passiveColorOptions: new PassiveColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.624f, 0.169f, 0.408f))),
             });
         }
     }
@@ -1462,11 +1473,14 @@ namespace AphoPassivePack
         }
         public override void OnRoundStart()
         {
-            UnitUtil.SetPassiveCombatLog(this, owner);
-            this.owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Strength, 4, this.owner);
-            this.owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Endurance, 4, this.owner);
-            this.owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Quickness, 4, this.owner);
-            this.owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Protection, 4, this.owner);
+            if (Singleton<StageController>.Instance.RoundTurn <= 3)
+            {
+                UnitUtil.SetPassiveCombatLog(this, owner);
+                this.owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Strength, 4, this.owner);
+                this.owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Endurance, 4, this.owner);
+                this.owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Quickness, 4, this.owner);
+                this.owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Protection, 4, this.owner);
+            }    
         }
         public override AtkResist GetResistBP(AtkResist origin, BehaviourDetail detail)
         {
@@ -1502,6 +1516,8 @@ namespace AphoPassivePack
         public override void OnBreakState()
         {
             UnitUtil.SetPassiveCombatLog(this, owner);
+            SingletonBehavior<DiceEffectManager>.Instance.CreateNewFXCreatureEffect("9_H/FX_IllusionCard_9_H_Martyr", 1f, owner.view, owner.view, 3f);
+            SoundEffectPlayer.PlaySound("Creature/BlueStar_In");
             this.owner.Die();
         }
     }
@@ -1896,6 +1912,62 @@ namespace AphoPassivePack
             {
                 Deactivate(this.owner);
             }
+        }
+    }
+
+    //Perdition
+    public class PassiveAbility_Apho_SeedOfDarkness : PassiveAbilityBase
+    {
+        public override void OnRoundStart()
+        {
+            this.GiveBuf();
+        }
+        private void GiveBuf()
+        {
+            foreach (BattleUnitModel battleUnitModel in BattleObjectManager.instance.GetAliveList(this.owner.faction))
+            {
+                if (battleUnitModel.bufListDetail.GetActivatedBuf(KeywordBuf.KeterFinal_DoubleEmotion) == null)
+                {
+                    battleUnitModel.bufListDetail.AddBuf(new BattleUnitBuf_Apho_SeedOfDarkness());
+                }
+            }
+        }
+    }
+    public class BattleUnitBuf_Apho_SeedOfDarkness : BattleUnitBuf
+    {
+        public override BufPositiveType positiveType
+        {
+            get
+            {
+                return BufPositiveType.Negative;
+            }
+        }
+        public override void Init(BattleUnitModel owner)
+        {
+            base.Init(owner);
+            this.stack = 0;
+        }
+        public override int GetEmotionCoinAdder(int defaultCount)
+        {
+            int penalty = (int)(defaultCount * -0.5);
+            return penalty;
+        }
+    }
+    public class PassiveAbility_Apho_ExpiredRations : PassiveAbilityBase
+    {
+        public override void OnRoundStart()
+        {
+            this.owner.ShowPassiveTypo(this);
+            this.owner.LoseHp(2);
+        }
+    }
+    public class PassiveAbility_Apho_MistakeCooking: PassiveAbilityBase
+    {
+        public override void OnKill(BattleUnitModel target)
+        {
+            int num = this.owner.MaxHp / 10;
+            this.owner.ShowPassiveTypo(this);
+            this.owner.LoseHp(num);
         }
     }
 }
