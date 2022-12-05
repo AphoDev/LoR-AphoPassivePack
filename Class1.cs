@@ -10,9 +10,7 @@ using UnityEngine;
 using LOR_XML;
 using BigDLL4221.Enum;
 using Sound;
-using static System.Collections.Specialized.BitVector32;
-using System.Security.Cryptography;
-using System.Text.RegularExpressions;
+using BigDLL4221.Buffs;
 
 namespace AphoPassivePack
 {
@@ -45,7 +43,6 @@ namespace AphoPassivePack
             ModParameters.Path.Add(AphoPassivePack_Params.PackageId, AphoPassivePack_Params.Path);
             OnInitRewards();
             OnInitCards();
-            //OnInitCredenza();
             OnInitCategories();
             OnInitKeypages();
             OnInitSprites();
@@ -62,6 +59,7 @@ namespace AphoPassivePack
                     new LorId(AphoPassivePack_Params.PackageId, 10000005),
                     new LorId(AphoPassivePack_Params.PackageId, 10000006),
                     new LorId(AphoPassivePack_Params.PackageId, 10000007),
+                    new LorId(AphoPassivePack_Params.PackageId, 10000008),
                 }
             ));
         }
@@ -82,19 +80,11 @@ namespace AphoPassivePack
                 new CardOptions(11, cardColorOptions: new CardColorOptions(new Color(0.263f, 0.816f, 0.761f), customIconColor: new Color(0.263f, 0.816f, 0.761f), useHSVFilter: false)), //PShield
             });
         }
-        /*private static void OnInitCredenza()
-        {
-            ModParameters.CredenzaOptions.Add(AphoPassivePack_Params.PackageId,
-                new CredenzaOptions(CredenzaEnum.BaseCredenza, credenzaName: AphoPassivePack_Params.CategoryName, customIconSpriteId: AphoPassivePack_Params.PackageId,  credenzaBooksId: new List<int>
-            {
-                10000001, 10000002, 10000003, 10000004, 10000005, 10000006, 10000007,
-            }));
-        }*/
         private static void OnInitCategories()
         {
             ModParameters.CategoryOptions.Add(AphoPassivePack_Params.PackageId, new List<CategoryOptions>
             {
-                new CategoryOptions(AphoPassivePack_Params.PackageId, additionalValue: "_1", categoryBooksId:new List<int>{10000001, 10000002, 10000003, 10000004, 10000005, 10000006, 10000007}, categoryName: AphoPassivePack_Params.CategoryName,customIconSpriteId:AphoPassivePack_Params.PackageId, bookDataColor: new CategoryColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.898f, 0.169f, 0.314f))),
+                new CategoryOptions(AphoPassivePack_Params.PackageId, additionalValue: "_1", categoryBooksId:new List<int>{10000001, 10000002, 10000003, 10000004, 10000005, 10000006, 10000007, 10000008}, categoryName: AphoPassivePack_Params.CategoryName,customIconSpriteId:AphoPassivePack_Params.PackageId, bookDataColor: new CategoryColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.898f, 0.169f, 0.314f)), credenzaType: CredenzaEnum.ModifiedCredenza, chapter: 1, credenzaBooksId: new List<int> { 10000001, 10000002, 10000003 , 10000004, 10000005, 10000006, 10000007, 10000008}),
             });
         }
         private static void OnInitKeypages()
@@ -108,6 +98,7 @@ namespace AphoPassivePack
                 new KeypageOptions(10000005, keypageColorOptions: new KeypageColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.898f, 0.169f, 0.314f))),
                 new KeypageOptions(10000006, keypageColorOptions: new KeypageColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.898f, 0.169f, 0.314f))),
                 new KeypageOptions(10000007, keypageColorOptions: new KeypageColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.898f, 0.169f, 0.314f))),
+                new KeypageOptions(10000008, keypageColorOptions: new KeypageColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.898f, 0.169f, 0.314f))),
             });
         }
         private static void OnInitSprites()
@@ -121,6 +112,7 @@ namespace AphoPassivePack
                 new SpriteOptions(SpriteEnum.Custom, 10000005, "Sprite"),
                 new SpriteOptions(SpriteEnum.Custom, 10000006, "Sprite"),
                 new SpriteOptions(SpriteEnum.Custom, 10000007, "Sprite"),
+                new SpriteOptions(SpriteEnum.Custom, 10000008, "Sprite"),
             });
         }
         private static void OnInitPassives()
@@ -185,6 +177,77 @@ namespace AphoPassivePack
                 new PassiveOptions(60, true, passiveColorOptions: new PassiveColorOptions(new Color(0.898f, 0.169f, 0.314f), new Color(0.898f, 0.169f, 0.314f))), //EdibleCorpse
                 //skip 61-66, those will use default colors
                 new PassiveOptions(67, true, passiveColorOptions: new PassiveColorOptions(new Color(0.898f, 0.169f, 0.314f), new Color(0.898f, 0.169f, 0.314f))), //IntoStarEmbrace
+
+                //BladeUnlocked
+                new PassiveOptions(70, true, cannotBeUsedWithPassives: new List<LorId>
+                {
+                        new LorId(250115),
+                        new LorId(AphoPassivePack_Params.PackageId, 71),
+                        new LorId(AphoPassivePack_Params.PackageId, 72),
+                        new LorId(AphoPassivePack_Params.PackageId, 73),
+                        new LorId(AphoPassivePack_Params.PackageId, 74),
+                        new LorId(AphoPassivePack_Params.PackageId, 75),
+                        new LorId(AphoPassivePack_Params.PackageId, 76),
+                }), //ProxyOfIndex
+                new PassiveOptions(71, true, passiveColorOptions: new PassiveColorOptions(Color.yellow, Color.yellow), cannotBeUsedWithPassives: new List<LorId>
+                {
+                        new LorId(250115),
+                        new LorId(AphoPassivePack_Params.PackageId, 70),
+                        new LorId(AphoPassivePack_Params.PackageId, 72),
+                        new LorId(AphoPassivePack_Params.PackageId, 73),
+                        new LorId(AphoPassivePack_Params.PackageId, 74),
+                        new LorId(AphoPassivePack_Params.PackageId, 75),
+                        new LorId(AphoPassivePack_Params.PackageId, 76),
+                }), //Odd
+                new PassiveOptions(72, true, passiveColorOptions: new PassiveColorOptions(Color.yellow, Color.yellow), cannotBeUsedWithPassives: new List<LorId>
+                {
+                        new LorId(250115),
+                        new LorId(AphoPassivePack_Params.PackageId, 70),
+                        new LorId(AphoPassivePack_Params.PackageId, 71),
+                        new LorId(AphoPassivePack_Params.PackageId, 73),
+                        new LorId(AphoPassivePack_Params.PackageId, 74),
+                        new LorId(AphoPassivePack_Params.PackageId, 75),
+                        new LorId(AphoPassivePack_Params.PackageId, 76),
+                }), //Even
+                new PassiveOptions(73, true, passiveColorOptions: new PassiveColorOptions(Color.red, Color.red), cannotBeUsedWithPassives: new List<LorId>
+                {
+                        new LorId(250115),
+                        new LorId(AphoPassivePack_Params.PackageId, 70),
+                        new LorId(AphoPassivePack_Params.PackageId, 71),
+                        new LorId(AphoPassivePack_Params.PackageId, 72),
+                        new LorId(AphoPassivePack_Params.PackageId, 74),
+                        new LorId(AphoPassivePack_Params.PackageId, 75),
+                }), //LowHP
+                new PassiveOptions(74, true, passiveColorOptions: new PassiveColorOptions(Color.red, Color.red), cannotBeUsedWithPassives: new List<LorId>
+                {
+                        new LorId(250115),
+                        new LorId(AphoPassivePack_Params.PackageId, 70),
+                        new LorId(AphoPassivePack_Params.PackageId, 71),
+                        new LorId(AphoPassivePack_Params.PackageId, 72),
+                        new LorId(AphoPassivePack_Params.PackageId, 73),
+                        new LorId(AphoPassivePack_Params.PackageId, 75),
+                        new LorId(AphoPassivePack_Params.PackageId, 76),
+                }), //Kill
+                new PassiveOptions(75, true, passiveColorOptions: new PassiveColorOptions(new Color(1, 0.5f, 0.5f), new Color(1, 0.5f, 0.5f)), cannotBeUsedWithPassives: new List<LorId>
+                {
+                        new LorId(250115),
+                        new LorId(AphoPassivePack_Params.PackageId, 70),
+                        new LorId(AphoPassivePack_Params.PackageId, 71),
+                        new LorId(AphoPassivePack_Params.PackageId, 72),
+                        new LorId(AphoPassivePack_Params.PackageId, 73),
+                        new LorId(AphoPassivePack_Params.PackageId, 74),
+                        new LorId(AphoPassivePack_Params.PackageId, 76),
+                }), //HighHP
+                new PassiveOptions(76, true, passiveColorOptions: new PassiveColorOptions(new Color(1, 0.5f, 0.5f), new Color(1, 0.5f, 0.5f)), cannotBeUsedWithPassives: new List<LorId>
+                {
+                        new LorId(250115),
+                        new LorId(AphoPassivePack_Params.PackageId, 70),
+                        new LorId(AphoPassivePack_Params.PackageId, 71),
+                        new LorId(AphoPassivePack_Params.PackageId, 72),
+                        new LorId(AphoPassivePack_Params.PackageId, 73),
+                        new LorId(AphoPassivePack_Params.PackageId, 74),
+                        new LorId(AphoPassivePack_Params.PackageId, 75),
+                }), //NoDeath
             });
         }
     }
@@ -1438,7 +1501,401 @@ namespace AphoPassivePack
         public static string Desc = "If this character is staggered, they die.";
         public override void OnBreakState()
         {
+            UnitUtil.SetPassiveCombatLog(this, owner);
             this.owner.Die();
+        }
+    }
+
+
+    //BladeUnlocked
+    public class BattleUnitBuf_Apho_IndexBuffYellow : BattleUnitBuf
+    {
+        public override KeywordBuf bufType => KeywordBuf.IndexRelease;
+        public override void Init(BattleUnitModel owner)
+        {
+            base.Init(owner);
+            CreateAura();
+        }
+        private GameObject _aura;
+        protected override string keywordId => "IndexRelease";
+        protected override string keywordIconId => "IndexRelease";
+        public override void BeforeRollDice(BattleDiceBehavior behavior)
+        {
+            behavior.ApplyDiceStatBonus(new DiceStatBonus { power = 1 });
+        }
+
+        private void CreateAura()
+        {
+            if (_aura != null) return;
+            var @object = Resources.Load("Prefabs/Battle/SpecialEffect/IndexRelease_Aura");
+            if (@object != null)
+            {
+                var gameObject = UnityEngine.Object.Instantiate(@object) as GameObject;
+                if (gameObject != null)
+                {
+                    gameObject.transform.parent = _owner.view.charAppearance.transform;
+                    gameObject.transform.localPosition = Vector3.zero;
+                    gameObject.transform.localRotation = Quaternion.identity;
+                    gameObject.transform.localScale = Vector3.one;
+                    var component = gameObject.GetComponent<IndexReleaseAura>();
+                    if (component != null) component.Init(_owner.view);
+                    _aura = gameObject;
+                }
+
+                if (_aura != null)
+                    foreach (var particle in _aura.GetComponentsInChildren<ParticleSystem>())
+                    {
+                        var main = particle.main;
+                        main.startColor = new Color(1, 1, 0, 1);
+                    }
+            }
+            SingletonBehavior<SoundEffectManager>.Instance.PlayClip("Buf/Effect_Index_Unlock");
+        }
+        public override void Destroy()
+        {
+            if (this._aura != null)
+            {
+                UnityEngine.Object.Destroy(this._aura);
+            }
+        }
+
+    }
+    public class BattleUnitBuf_Apho_IndexBuffRed : BattleUnitBuf
+    {
+        public override KeywordBuf bufType => KeywordBuf.IndexRelease;
+        public override void Init(BattleUnitModel owner)
+        {
+            base.Init(owner);
+            CreateAura();
+        }
+        private GameObject _aura;
+        protected override string keywordId => "IndexRelease";
+        protected override string keywordIconId => "IndexRelease";
+        public override void BeforeRollDice(BattleDiceBehavior behavior)
+        {
+            behavior.ApplyDiceStatBonus(new DiceStatBonus { power = 1 });
+        }
+
+        private void CreateAura()
+        {
+            if (_aura != null) return;
+            var @object = Resources.Load("Prefabs/Battle/SpecialEffect/IndexRelease_Aura");
+            if (@object != null)
+            {
+                var gameObject = UnityEngine.Object.Instantiate(@object) as GameObject;
+                if (gameObject != null)
+                {
+                    gameObject.transform.parent = _owner.view.charAppearance.transform;
+                    gameObject.transform.localPosition = Vector3.zero;
+                    gameObject.transform.localRotation = Quaternion.identity;
+                    gameObject.transform.localScale = Vector3.one;
+                    var component = gameObject.GetComponent<IndexReleaseAura>();
+                    if (component != null) component.Init(_owner.view);
+                    _aura = gameObject;
+                }
+
+                if (_aura != null)
+                    foreach (var particle in _aura.GetComponentsInChildren<ParticleSystem>())
+                    {
+                        var main = particle.main;
+                        main.startColor = new Color(1, 0, 0, 1);
+                    }
+            }
+            SingletonBehavior<SoundEffectManager>.Instance.PlayClip("Buf/Effect_Index_Unlock");
+        }
+        public override void Destroy()
+        {
+            if (this._aura != null)
+            {
+                UnityEngine.Object.Destroy(this._aura);
+            }
+        }
+
+    }
+    public class BattleUnitBuf_Apho_IndexBuffPink : BattleUnitBuf
+    {
+        public override KeywordBuf bufType => KeywordBuf.IndexRelease;
+        public override void Init(BattleUnitModel owner)
+        {
+            base.Init(owner);
+            CreateAura();
+        }
+        private GameObject _aura;
+        protected override string keywordId => "IndexRelease";
+        protected override string keywordIconId => "IndexRelease";
+        public override void BeforeRollDice(BattleDiceBehavior behavior)
+        {
+            behavior.ApplyDiceStatBonus(new DiceStatBonus { power = 1 });
+        }
+
+        private void CreateAura()
+        {
+            if (_aura != null) return;
+            var @object = Resources.Load("Prefabs/Battle/SpecialEffect/IndexRelease_Aura");
+            if (@object != null)
+            {
+                var gameObject = UnityEngine.Object.Instantiate(@object) as GameObject;
+                if (gameObject != null)
+                {
+                    gameObject.transform.parent = _owner.view.charAppearance.transform;
+                    gameObject.transform.localPosition = Vector3.zero;
+                    gameObject.transform.localRotation = Quaternion.identity;
+                    gameObject.transform.localScale = Vector3.one;
+                    var component = gameObject.GetComponent<IndexReleaseAura>();
+                    if (component != null) component.Init(_owner.view);
+                    _aura = gameObject;
+                }
+
+                if (_aura != null)
+                    foreach (var particle in _aura.GetComponentsInChildren<ParticleSystem>())
+                    {
+                        var main = particle.main;
+                        main.startColor = new Color(1, 0.5f, 0.5f, 1);
+                    }
+            }
+            SingletonBehavior<SoundEffectManager>.Instance.PlayClip("Buf/Effect_Index_Unlock");
+        }
+        public override void Destroy()
+        {
+            if (this._aura != null)
+            {
+                UnityEngine.Object.Destroy(this._aura);
+            }
+        }
+
+    }
+    public class PassiveAbility_Apho_BladeUnlockedProxyOfIndex : PassiveAbilityBase
+    {
+        private static void Activate(BattleUnitModel unit)
+        {
+            if (unit.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease) == null)
+            {
+                unit.bufListDetail.AddBufWithoutDuplication(new BattleUnitBuf_CustomInstantIndexRelease_DLL4221());
+            }
+        }
+        public override void OnRoundStart()
+        {
+            if(Singleton<StageController>.Instance.RoundTurn >= 2)
+            {
+                Activate(this.owner);
+            }
+        }
+    }
+
+    public class PassiveAbility_Apho_BladeUnlockedOdd : PassiveAbilityBase
+    {
+        private bool _activated;
+        private static void Activate(BattleUnitModel unit)
+        {
+            unit.bufListDetail.AddBufWithoutDuplication(new BattleUnitBuf_Apho_IndexBuffYellow());
+        }
+        private static void Deactivate(BattleUnitModel unit)
+        {
+            BattleUnitBuf buf = unit.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease);
+            buf.Destroy();
+            unit.bufListDetail.RemoveBuf(buf);
+            SingletonBehavior<BattleManagerUI>.Instance.ui_unitListInfoSummary.UpdateCharacterProfileAll();
+        }
+        public override void OnRoundStart()
+        {
+            if (Singleton<StageController>.Instance.RoundTurn % 2 == 1 && owner.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease) == null)
+            {
+                Activate(this.owner);
+                this._activated = true;
+            }
+        }
+        public override void OnRoundEnd()
+        {
+            if (this._activated == true)
+            {
+                Deactivate(this.owner);
+                this._activated = false;
+            }
+        }
+    }
+
+    public class PassiveAbility_Apho_BladeUnlockedEven : PassiveAbilityBase
+    {
+        private bool _activated;
+        private static void Activate(BattleUnitModel unit)
+        {
+            unit.bufListDetail.AddBufWithoutDuplication(new BattleUnitBuf_Apho_IndexBuffYellow());
+        }
+        private static void Deactivate(BattleUnitModel unit)
+        {
+            BattleUnitBuf buf = unit.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease);
+            buf.Destroy();
+            unit.bufListDetail.RemoveBuf(buf);
+            SingletonBehavior<BattleManagerUI>.Instance.ui_unitListInfoSummary.UpdateCharacterProfileAll();
+        }
+        public override void OnRoundStart()
+        {
+            if (Singleton<StageController>.Instance.RoundTurn % 2 == 0 && owner.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease) == null)
+            {
+                Activate(this.owner);
+                this._activated = true;
+            }
+        }
+        public override void OnRoundEnd()
+        {
+            if (this._activated == true)
+            {
+                Deactivate(this.owner);
+                this._activated = false;
+            }
+        }
+    }
+
+    public class PassiveAbility_Apho_BladeUnlockedLowHP : PassiveAbilityBase
+    {
+        private static void Activate(BattleUnitModel unit)
+        {
+            unit.bufListDetail.AddBufWithoutDuplication(new BattleUnitBuf_Apho_IndexBuffRed());
+        }
+        private static void Deactivate(BattleUnitModel unit)
+        {
+            BattleUnitBuf buf = unit.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease);
+            buf.Destroy();
+            unit.bufListDetail.RemoveBuf(buf);
+            SingletonBehavior<BattleManagerUI>.Instance.ui_unitListInfoSummary.UpdateCharacterProfileAll();
+        }
+        public override void OnRoundStart()
+        {
+            Console.WriteLine(owner.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease));
+            if (owner.hp <= owner.MaxHp * 0.25 && owner.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease) == null)
+            {
+                UnitUtil.SetPassiveCombatLog(this, owner);
+                Activate(this.owner);
+            }
+            else if (owner.hp > owner.MaxHp * 0.25 && owner.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease) != null)
+            {
+                Deactivate(this.owner);
+            }
+        }
+        public override void AfterTakeDamage(BattleUnitModel attacker, int dmg)
+        {
+            if (owner.hp <= owner.MaxHp * 0.25 && owner.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease) == null)
+            {
+                UnitUtil.SetPassiveCombatLog(this, owner);
+                Activate(this.owner);
+            }
+            else if (owner.hp > owner.MaxHp * 0.25 && owner.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease) != null)
+            {
+                Deactivate(this.owner);
+            }
+        }
+        public override void OnRecoverHp(int amount)
+        {
+            if (owner.hp <= owner.MaxHp * 0.25 && owner.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease) == null)
+            {
+                UnitUtil.SetPassiveCombatLog(this, owner);
+                Activate(this.owner);
+            }
+            else if (owner.hp > owner.MaxHp * 0.25 && owner.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease) != null)
+            {
+                Deactivate(this.owner);
+            }
+        }
+    }
+
+    public class PassiveAbility_Apho_BladeUnlockedKill : PassiveAbilityBase
+    {
+        private static void Activate(BattleUnitModel unit)
+        {
+            unit.bufListDetail.AddBufWithoutDuplication(new BattleUnitBuf_Apho_IndexBuffRed());
+        }
+        public override void OnKill(BattleUnitModel target)
+        {
+            if (target.faction != this.owner.faction && owner.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease) == null)
+            {
+                UnitUtil.SetPassiveCombatLog(this, owner);
+                Activate(this.owner);
+            }
+        }
+    }
+
+    public class PassiveAbility_Apho_BladeUnlockedHighHP : PassiveAbilityBase
+    {
+        private static void Activate(BattleUnitModel unit)
+        {
+            unit.bufListDetail.AddBufWithoutDuplication(new BattleUnitBuf_Apho_IndexBuffPink());
+        }
+        private static void Deactivate(BattleUnitModel unit)
+        {
+            BattleUnitBuf buf = unit.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease);
+            buf.Destroy();
+            unit.bufListDetail.RemoveBuf(buf);
+            SingletonBehavior<BattleManagerUI>.Instance.ui_unitListInfoSummary.UpdateCharacterProfileAll();
+        }
+        public override void OnRoundStart()
+        {
+            Console.WriteLine(owner.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease));
+            if (owner.hp >= owner.MaxHp && owner.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease) == null)
+            {
+                UnitUtil.SetPassiveCombatLog(this, owner);
+                Activate(this.owner);
+            }
+            else if (owner.hp < owner.MaxHp && owner.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease) != null)
+            {
+                Deactivate(this.owner);
+            }
+        }
+        public override void AfterTakeDamage(BattleUnitModel attacker, int dmg)
+        {
+            if (owner.hp >= owner.MaxHp && owner.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease) == null)
+            {
+                UnitUtil.SetPassiveCombatLog(this, owner);
+                Activate(this.owner);
+            }
+            else if (owner.hp < owner.MaxHp && owner.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease) != null)
+            {
+                Deactivate(this.owner);
+            }
+        }
+        public override void OnRecoverHp(int amount)
+        {
+            if (owner.hp >= owner.MaxHp && owner.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease) == null)
+            {
+                UnitUtil.SetPassiveCombatLog(this, owner);
+                Activate(this.owner);
+            }
+            else if (owner.hp < owner.MaxHp && owner.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease) != null)
+            {
+                Deactivate(this.owner);
+            }
+        }
+    }
+
+    public class PassiveAbility_Apho_BladeUnlockedNoDeath : PassiveAbilityBase
+    {
+        private static void Activate(BattleUnitModel unit)
+        {
+            unit.bufListDetail.AddBufWithoutDuplication(new BattleUnitBuf_Apho_IndexBuffPink());
+        }
+        private static void Deactivate(BattleUnitModel unit)
+        {
+            BattleUnitBuf buf = unit.bufListDetail.GetActivatedBuf(KeywordBuf.IndexRelease);
+            buf.Destroy();
+            unit.bufListDetail.RemoveBuf(buf);
+            SingletonBehavior<BattleManagerUI>.Instance.ui_unitListInfoSummary.UpdateCharacterProfileAll();
+        }
+        public override void OnWaveStart()
+        {
+            int count = BattleObjectManager.instance.GetAliveList(this.owner.faction).Count;
+            if (count >= 2)
+            {
+                UnitUtil.SetPassiveCombatLog(this, owner);
+                Activate(this.owner);
+            }
+        }
+        public override void OnRoundEnd()
+        {
+            int count = BattleObjectManager.instance.GetList(this.owner.faction).Count;
+            int count2 = BattleObjectManager.instance.GetAliveList(this.owner.faction).Count;
+            if (count2 < count)
+            {
+                Deactivate(this.owner);
+            }
         }
     }
 }
