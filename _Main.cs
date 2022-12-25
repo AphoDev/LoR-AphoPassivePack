@@ -1,5 +1,4 @@
-﻿
-using BigDLL4221.Models;
+﻿using BigDLL4221.Models;
 using BigDLL4221.Utils;
 using LOR_DiceSystem;
 using System.Collections.Generic;
@@ -61,6 +60,7 @@ namespace AphoPassivePack
                     new LorId(AphoPassivePack_Params.PackageId, 10000007),
                     new LorId(AphoPassivePack_Params.PackageId, 10000008),
                     new LorId(AphoPassivePack_Params.PackageId, 10000009),
+                    new LorId(AphoPassivePack_Params.PackageId, 10000010),
                 }
             ));
         }
@@ -85,7 +85,7 @@ namespace AphoPassivePack
         {
             ModParameters.CategoryOptions.Add(AphoPassivePack_Params.PackageId, new List<CategoryOptions>
             {
-                new CategoryOptions(AphoPassivePack_Params.PackageId, additionalValue: "_1", categoryBooksId:new List<int>{10000001, 10000002, 10000003, 10000004, 10000005, 10000006, 10000007, 10000008, 10000009}, categoryName: AphoPassivePack_Params.CategoryName,customIconSpriteId:AphoPassivePack_Params.PackageId, bookDataColor: new CategoryColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.898f, 0.169f, 0.314f)), credenzaType: CredenzaEnum.ModifiedCredenza, chapter: 1, credenzaBooksId: new List<int> { 10000001, 10000002, 10000003 , 10000004, 10000005, 10000006, 10000007, 10000008, 10000009}),
+                new CategoryOptions(AphoPassivePack_Params.PackageId, additionalValue: "_1", categoryBooksId:new List<int>{10000001, 10000002, 10000003, 10000004, 10000005, 10000006, 10000007, 10000008, 10000009, 10000010}, categoryName: AphoPassivePack_Params.CategoryName,customIconSpriteId:AphoPassivePack_Params.PackageId, bookDataColor: new CategoryColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.898f, 0.169f, 0.314f)), credenzaType: CredenzaEnum.ModifiedCredenza, chapter: 1, credenzaBooksId: new List<int> { 10000001, 10000002, 10000003 , 10000004, 10000005, 10000006, 10000007, 10000008, 10000009, 10000010}),
             });
         }
         private static void OnInitKeypages()
@@ -101,6 +101,7 @@ namespace AphoPassivePack
                 new KeypageOptions(10000007, keypageColorOptions: new KeypageColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.898f, 0.169f, 0.314f))),
                 new KeypageOptions(10000008, keypageColorOptions: new KeypageColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.898f, 0.169f, 0.314f))),
                 new KeypageOptions(10000009, keypageColorOptions: new KeypageColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.898f, 0.169f, 0.314f))),
+                new KeypageOptions(10000010, keypageColorOptions: new KeypageColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.898f, 0.169f, 0.314f))),
             });
         }
         private static void OnInitSprites()
@@ -116,6 +117,7 @@ namespace AphoPassivePack
                 new SpriteOptions(SpriteEnum.Custom, 10000007, "AphoPassivePack_Sprite"),
                 new SpriteOptions(SpriteEnum.Custom, 10000008, "AphoPassivePack_Sprite"),
                 new SpriteOptions(SpriteEnum.Custom, 10000009, "AphoPassivePack_Sprite"),
+                new SpriteOptions(SpriteEnum.Custom, 10000010, "AphoPassivePack_Sprite"),
             });
         }
         private static void OnInitPassives()
@@ -259,6 +261,14 @@ namespace AphoPassivePack
                 new PassiveOptions(83, true, passiveColorOptions: new PassiveColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.624f, 0.169f, 0.408f))),
                 new PassiveOptions(84, true, passiveColorOptions: new PassiveColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.624f, 0.169f, 0.408f))),
                 new PassiveOptions(85, true, passiveColorOptions: new PassiveColorOptions(new Color(0.624f, 0.169f, 0.408f), new Color(0.624f, 0.169f, 0.408f))),
+
+                //Breathing
+                new PassiveOptions(90, true, passiveColorOptions: new PassiveColorOptions(new Color(0.898f, 0.169f, 0.314f), new Color(0.898f, 0.169f, 0.314f))), //Deeper
+                new PassiveOptions(91, true, passiveColorOptions: new PassiveColorOptions(new Color(0.898f, 0.169f, 0.314f), new Color(0.898f, 0.169f, 0.314f))), //Deepest
+                new PassiveOptions(92, true, passiveColorOptions: new PassiveColorOptions(new Color(0.898f, 0.169f, 0.314f), new Color(0.898f, 0.169f, 0.314f))), //Under
+                new PassiveOptions(93, true, passiveColorOptions: new PassiveColorOptions(new Color(0.898f, 0.169f, 0.314f), new Color(0.898f, 0.169f, 0.314f))), //Deathly
+                new PassiveOptions(94, true, passiveColorOptions: new PassiveColorOptions(new Color(0.898f, 0.169f, 0.314f), new Color(0.898f, 0.169f, 0.314f))), //Emergency
+                new PassiveOptions(95, true, passiveColorOptions: new PassiveColorOptions(new Color(0.898f, 0.169f, 0.314f), new Color(0.898f, 0.169f, 0.314f))), //Fire
             });
         }
     }
@@ -824,7 +834,6 @@ namespace AphoPassivePack
             ReplaceAmmo();
         }
     }
-
     public class PassiveAbility_Apho_FrostAmmo : PassiveAbilityBase
     {
         public static string Name = "Frost Rounds";
@@ -863,7 +872,6 @@ namespace AphoPassivePack
             ReplaceAmmo();
         }
     }
-
     public class PassiveAbility_Apho_FlameAmmo : PassiveAbilityBase
     {
         public static string Name = "Flame Rounds";
@@ -998,7 +1006,8 @@ namespace AphoPassivePack
         {
             if (targetUnit != null)
             {
-                targetUnit.RecoverHP(8); SingletonBehavior<BattleManagerUI>.Instance.ui_unitListInfoSummary.UpdateCharacterProfile(targetUnit, targetUnit.faction, targetUnit.hp, targetUnit.breakDetail.breakGauge, targetUnit.bufListDetail.GetBufUIDataList());
+                targetUnit.breakDetail.RecoverBreak(8);
+                SingletonBehavior<BattleManagerUI>.Instance.ui_unitListInfoSummary.UpdateCharacterProfile(targetUnit, targetUnit.faction, targetUnit.hp, targetUnit.breakDetail.breakGauge, targetUnit.bufListDetail.GetBufUIDataList());
             }
         }
         public override bool IsValidTarget(BattleUnitModel unit, BattleDiceCardModel self, BattleUnitModel targetUnit)
